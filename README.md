@@ -23,7 +23,8 @@ For this guide, I’m going to refer to your main computer’s wallet as the mai
     * Always use right button click for PASTE text in PUTTY from WINDOWS
 3. RUN script bellow(select from below, COPY, PASTE in Putty and press ENTER):
 
-   ``` https://raw.githubusercontent.com/BitWin24/guides/master/bwi_mninstall
+   ``` 
+   wget https://raw.githubusercontent.com/BitWin24/guides/master/bwi_mninstall
    sudo chmod +x bwi_mninstall.sh
    ./bwi_mninstall.sh ```
     
