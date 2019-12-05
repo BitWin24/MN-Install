@@ -26,7 +26,7 @@ For this guide, I’m going to refer to your main computer’s wallet as the mai
    ``` 
    wget https://raw.githubusercontent.com/BitWin24/guides/master/bwi_mninstall
    sudo chmod +x bwi_mninstall.sh
-   ./bwi_mninstall.sh ```
+   ./bwi_mninstall.sh```
     
 (It may take 2-3 minutes. It will automatically install and configure masternode wallet for your masternode server!)
 
