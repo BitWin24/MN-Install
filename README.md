@@ -24,7 +24,7 @@ For this guide, I’m going to refer to your main computer’s wallet as the mai
 3. RUN script bellow(select from below, COPY, PASTE in Putty and press ENTER):
 
    ``` 
-   wget https://raw.githubusercontent.com/BitWin24/guides/master/bwi_mninstall
+   wget https://raw.githubusercontent.com/BitWin24/guides/master/bwi_mninstall.sh
    sudo chmod +x bwi_mninstall.sh
    ./bwi_mninstall.sh
     
