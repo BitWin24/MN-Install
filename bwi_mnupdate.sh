@@ -72,15 +72,15 @@ rm -rf /bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
 cd .bitwin24/
 rm -rf backups/ budget.dat db.log .lock mnpayments.dat chainstate debug.log peers.dat zerocoin blocks database fee_estimates.dat mncache.dat sporks
-wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.5/bitwin24-0.0.5-x86_64-linux-gnu.tar.gz
-tar -xzvf bitwin24-0.0.5-x86_64-linux-gnu.tar.gz
+wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.6/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
+tar -xzvf bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
 cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
 cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
 cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
 bitwin24-cli stop  2>/dev/null  >/dev/null
-rm ~/bitwin24-0.0.5-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
+rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
 bitwin24d -daemon 
 
 echo -e "
