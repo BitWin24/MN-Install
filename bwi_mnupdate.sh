@@ -37,6 +37,7 @@ function stop_daemon {
 }
 
 killall bitwin24d 2>/dev/null  >/dev/null
+sleep 6
 killall bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
 
