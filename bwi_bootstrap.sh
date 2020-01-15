@@ -1,5 +1,7 @@
 # asking for permission to run script
 
+clear 
+
 echo -e "${GREEN} ---------- BitWin24 BOOTSTRAP INSTALLER -----------
  |                                                  |
  |                                                  |
