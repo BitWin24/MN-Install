@@ -32,8 +32,9 @@ sleep 5
 # downloading bootstrap
 
 cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin
-cd ~/.bitwin24/ && wget https://github.com/BitWin24/guides/raw/master/BITWIN24-bootstrap15012020.zip
-cd ~/.bitwin24/ && unzip BITWIN24-bootstrap15012020.zip
+cd ~/.bitwin24/ && wget https://github.com/BitWin24/guides/raw/master/bootstrap.zip
+cd ~/.bitwin24/ && unzip bootstrap.zip
+
 
 # starting wallet
 
