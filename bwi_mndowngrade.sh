@@ -88,6 +88,8 @@ bitwin24-cli stop  2>/dev/null  >/dev/null
 rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
 
 
+# stopping wallet
+
 cd ~
 bitwin24-cli stop
 sleep 5
@@ -95,13 +97,13 @@ sleep 5
 # downloading bootstrap
 
 cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
-cd ~/.bitwin24/ && wget https://github.com/BitWin24/guides/raw/master/bootstrap.zip
+cd ~/.bitwin24/ && wget https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip
 cd ~/.bitwin24/ && unzip bootstrap.zip
 
 
 # starting wallet
 
-bitwin24d -daemon 
+bitwin24d -daemon
 
 echo -e "
 ${GREEN}...Masternode successfully updated!...${NC}
@@ -131,5 +133,5 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 "
-rm ~/bwi_mnupdate.sh
+rm ~/bwi_mndowngrade.sh
 
