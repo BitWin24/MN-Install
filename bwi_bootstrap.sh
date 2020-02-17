@@ -32,12 +32,12 @@ sleep 5
 # downloading bootstrap
 
 cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
-cd ~/.bitwin24/ && wget -O DB.zip https://www.dropbox.com/sh/phg4qz8bsuwvcsp/AACniXhh_EhJCDqqhJLm6d1Da?dl=1
+cd ~/.bitwin24/ && wget -O DB.zip https://www.dropbox.com/s/vw3i49o2a2oafuv/20200217_BWI-Bootstrap.zip?dl=1
 cd ~/.bitwin24/ && unzip DB.zip
-cd ~/.bitwin24/ && unzip BIT*
+cd ~/.bitwin24/ && unzip 2020*
 
 rm DB.zip
-rm BIT*
+rm 2020*
 
 
 # starting wallet
