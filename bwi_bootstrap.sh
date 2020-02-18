@@ -31,6 +31,7 @@ sleep 5
 
 # downloading bootstrap
 
+rm bootstrap*
 cd ~/.bitwin24/
 rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks
 cd ~/.bitwin24/ && wget -O DB.zip https://www.dropbox.com/s/e11ji0e1x7h1jlc/20200218_bwi_bootstrap_152385.zip
