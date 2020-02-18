@@ -31,9 +31,14 @@ sleep 5
 
 # downloading bootstrap
 
-cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
-cd ~/.bitwin24/ && wget https://www.dropbox.com/s/e11ji0e1x7h1jlc/20200218_bwi_bootstrap_152385.zip
-cd ~/.bitwin24/ && unzip 20200218_bwi_bootstrap_152385.zip
+
+cd ~/.bitwin24/ && wget -O DB.zip https://www.dropbox.com/s/e11ji0e1x7h1jlc/20200218_bwi_bootstrap_152385.zip
+cd ~/.bitwin24/ && unzip DB.zip
+cd ~/.bitwin24/ && unzip 2020*
+
+rm DB.zip
+rm 2020*
+
 
 
 # starting wallet
@@ -53,5 +58,3 @@ ${GREEN}bitwin24-cli getinfo${NC}
 
 ========================================================================"
 
-cd ~ && rm -rf bwi_bootstrap.sh 
-cd ~/.bitwin24/ && rm 20200218_bwi_bootstrap_152385.zip
