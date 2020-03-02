@@ -1,5 +1,9 @@
 # asking for permission to run script
 
+declare -r BOOTSTRAP_LINK='https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip'
+
+
+
 clear 
 
 echo -e "${GREEN} ---------- BitWin24 BOOTSTRAP INSTALLER -----------
@@ -33,11 +37,11 @@ sleep 5
 
 rm bwi_bootstrap*
 cd ~/.bitwin24/
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks
-cd ~/.bitwin24/ && wget https://www.dropbox.com/s/e11ji0e1x7h1jlc/20200218_bwi_bootstrap_152385.zip
-cd ~/.bitwin24/ && unzip 20200218_bwi_bootstrap_152385.zip
+rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks bootstrap*
+cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
+cd ~/.bitwin24/ && unzip bootstrap.zip
 
-rm 2020*
+rm bootstrap.zip*
 
 
 

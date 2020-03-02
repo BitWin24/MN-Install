@@ -6,7 +6,7 @@ declare -r COIN_NAME='bitwin24'
 declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
 declare -r COIN_PATH='/usr/local/bin'
-declare -r BOOTSTRAP_LINK=''
+declare -r BOOTSTRAP_LINK='https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip'
 declare -r COIN_ARH='http://167.172.160.11/0.0.8/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz'
 declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
 declare -r CONFIG_FILE="${COIN_NAME}.conf"
@@ -97,7 +97,7 @@ rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
 
-cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
+cd ~/.bitwin24/ && rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bootstrap.zip
 

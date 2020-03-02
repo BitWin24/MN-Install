@@ -1,4 +1,4 @@
-# BitWin24 Masternode Setup Script V1.0 for Ubuntu 16.04 LTS
+# BitWin24 Masternode Setup Script V1.0 for Ubuntu 16/18 LTS
 #by mrx0rhk
 #!/bin/bash
 #
@@ -8,6 +8,17 @@
 # Usage:
 # bash bwi_mninstall.sh
 #
+
+
+declare -r COIN_NAME='bitwin24'
+declare -r COIN_DAEMON="${COIN_NAME}d"
+declare -r COIN_CLI="${COIN_NAME}-cli"
+declare -r COIN_PATH='/usr/local/bin'
+declare -r BOOTSTRAP_LINK='https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip'
+declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0.8/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz'
+declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
+declare -r CONFIG_FILE="${COIN_NAME}.conf"
+declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
 
 #Color codes
 RED='\033[0;91m'
@@ -97,21 +108,21 @@ then
 else
    echo -e "${GREEN}Updating system and installing required packages. This can take a few minutes...${NC}"
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get update -y 2>/dev/null 
-sudo apt-get -y upgrade 2>/dev/null
-sudo apt-get -y dist-upgrade 2>/dev/null
-sudo apt-get -y autoremove 2>/dev/null
-sudo apt-get -y install wget nano htop jq 2>/dev/null
-sudo apt-get -y install libzmq3-dev 2>/dev/null
-sudo apt-get -y install libevent-dev -y 2>/dev/null
-sudo apt-get install unzip 2>/dev/null
-sudo apt install unzip 2>/dev/null
-sudo apt -y install software-properties-common 2>/dev/null
-sudo add-apt-repository ppa:bitcoin/bitcoin -y 2>/dev/null
-sudo apt-get -y update 2>/dev/null
-sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y 2>/dev/null
-sudo apt-get -y install libminiupnpc-dev 2>/dev/null
-sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y 2>/dev/null 
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -y 2>/dev/null  >/dev/null 
+sudo apt-get -y upgrade 2>/dev/null  >/dev/null 
+sudo apt-get -y dist-upgrade 2>/dev/null  >/dev/null
+sudo apt-get -y autoremove 2>/dev/null  >/dev/null
+sudo apt-get -y install wget nano htop jq 2>/dev/null  >/dev/null
+sudo apt-get -y install libzmq3-dev 2>/dev/null  >/dev/null
+sudo apt-get -y install libevent-dev -y 2>/dev/null  >/dev/null
+sudo apt-get install unzip 2>/dev/null  >/dev/null
+sudo apt install unzip 2>/dev/null  >/dev/null
+sudo apt -y install software-properties-common 2>/dev/null  >/dev/null
+sudo add-apt-repository ppa:bitcoin/bitcoin -y 2>/dev/null  >/dev/null
+sudo apt-get -y update 2>/dev/null  >/dev/null
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y 2>/dev/null  >/dev/null
+sudo apt-get -y install libminiupnpc-dev 2>/dev/null  >/dev/null
+sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y 2>/dev/null  >/dev/null 
    fi
    
 
@@ -179,8 +190,8 @@ echo -e "${GREEN}Downloading and installing BitWin24 deamon...${NC}"
 cd ~
 rm -rf /bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
-wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.6/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
-tar -xzvf bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
+wget ${COIN_ARH}
+tar xvzf "${COIN_TGZ}"
 cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
@@ -227,13 +238,14 @@ done
     
 #Adding bootstrap files 
 
-cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
-cd ~/.bitwin24/ && wget https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip
+cd ~/.bitwin24/ && rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks bootstrap*
+cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bootstrap.zip
 
 sleep 5 
 
-cd ~/.bitwin24/ && rm -rf bootstrap.zip
+cd ~/.bitwin24/ && rm -rf bootstrap.zip*
+
 
 # Create bitwin24.conf
 cat <<EOF > ~/.bitwin24/bitwin24.conf
