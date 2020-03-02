@@ -140,3 +140,4 @@ ${RED}BitWin24 - the first real Blockchain Lottery${NC}
 rm ~/bwi_mnupdate.sh
 
 bitwin24-cli getinfo
+bitwin24-cli getinfo
