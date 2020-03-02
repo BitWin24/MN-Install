@@ -62,4 +62,4 @@ ${GREEN}bitwin24-cli getinfo${NC}
 
 ========================================================================"
 cd ~
-rm bwi_bootstrap*
+rm bwi_bootstrap.sh*
