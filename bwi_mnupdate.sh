@@ -1,6 +1,17 @@
 #Update Masternode Script by mrx0rhk
 #This Script updates the bitwin24 Masternode to the newest Version
 
+
+declare -r COIN_NAME='bitwin24'
+declare -r COIN_DAEMON="${COIN_NAME}d"
+declare -r COIN_CLI="${COIN_NAME}-cli"
+declare -r COIN_PATH='/usr/local/bin'
+declare -r BOOTSTRAP_LINK=''
+declare -r COIN_ARH='http://167.172.160.11/0.0.8/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz'
+declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
+declare -r CONFIG_FILE="${COIN_NAME}.conf"
+declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
+
 #Color codes
 RED='\033[0;91m'
 GREEN='\033[1;32m'
@@ -37,8 +48,6 @@ function stop_daemon {
 }
 
 killall bitwin24d 2>/dev/null  >/dev/null
-
-sleep 6
 killall bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
 
@@ -66,7 +75,6 @@ if [[ $DOSETUP =~ "n" ]] ; then
     fi
     
 killall bitwin24d 2>/dev/null  >/dev/null
-sleep 6
 killall bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
 
@@ -77,8 +85,8 @@ clear
 cd ~
 rm -rf /bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
-wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.7/bitwin24-0.0.7-x86_64-linux-gnu.tar.gz
-tar -xzvf bitwin24-0.0.7-x86_64-linux-gnu.tar.gz
+wget ${COIN_ARH}
+tar xvzf "${COIN_TGZ}"
 cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
@@ -86,10 +94,23 @@ cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
 cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
 bitwin24-cli stop  2>/dev/null  >/dev/null
 rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
+
+#Adding bootstrap files 
+
+cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
+cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
+cd ~/.bitwin24/ && unzip bootstrap.zip
+
+sleep 5 
+
+cd ~/.bitwin24/ && rm -rf bootstrap.zip
+
 bitwin24d -daemon 
 
 echo -e "
 ${GREEN}...Masternode successfully updated!...${NC}
+
+When the blockchain is fully synced start your masternode in the control wallet !
 
 Here are some useful commands and tools for wallet troubleshooting:
 ========================================================================
