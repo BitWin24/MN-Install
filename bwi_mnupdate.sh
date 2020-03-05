@@ -137,6 +137,7 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 "
-rm ~/bwi_mnupdate.sh
+cd ~
+rm bwi_mnupdate.sh
 
 
