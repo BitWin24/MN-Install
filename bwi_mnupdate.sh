@@ -78,7 +78,7 @@ killall bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
 killall -9 bitwin24d 2>/dev/null  >/dev/null
 
-sleep 9
+sleep 10
 clear
 
 #updating Daemon
@@ -92,17 +92,18 @@ sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
 cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
 cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
+bitwin24-cli stop  2>/dev/null  >/dev/null
 rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
 
-#cd ~/.bitwin24/ && rm -rf backups blocks chainstate db.log fee_estimates.dat masternode.conf mnpayments.dat sporks wallet.dat banlist.dat bitwin24d.pid budget.dat databasedebug.log .lock mncache.dat mnwitness staking  zerocoin bootstrap* bitwin24-0.0.*
-#cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
-#cd ~/.bitwin24/ && unzip bootstrap.zip
+cd ~/.bitwin24/ && rm -rf blocks chainstate db.log fee_estimates.dat sporks banlist.dat budget.dat bootstrap* bitwin24-0.0.*
+cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
+cd ~/.bitwin24/ && unzip bootstrap.zip
 
-#sleep 5 
+sleep 5 
 
-#cd ~/.bitwin24/ && rm -rf bootstrap.zip
+cd ~/.bitwin24/ && rm -rf bootstrap.zip
 
 bitwin24d -daemon 
 
