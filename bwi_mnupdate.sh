@@ -92,7 +92,6 @@ sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
 cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
 cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
-bitwin24-cli stop  2>/dev/null  >/dev/null
 rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
