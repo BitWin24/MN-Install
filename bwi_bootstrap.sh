@@ -30,6 +30,7 @@ clear
 # stopping wallet
 
 cd ~
+rm -rf bitwin24-0.0.*
 bitwin24-cli stop
 sleep 5
 
@@ -37,7 +38,7 @@ sleep 5
 
 rm bwi_bootstrap*
 cd ~/.bitwin24/
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks
+rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks mnwitness masternode.conf wallet.dat 
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bootstrap.zip
 
