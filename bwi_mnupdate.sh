@@ -78,7 +78,7 @@ killall bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
 killall -9 bitwin24d 2>/dev/null  >/dev/null
 
-sleep 5
+sleep 9
 clear
 
 #updating Daemon
