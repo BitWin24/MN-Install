@@ -1,6 +1,6 @@
 # asking for permission to run script
 
-declare -r BOOTSTRAP_LINK='https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip'
+declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
 
 
 
@@ -38,9 +38,9 @@ sleep 5
 
 rm bwi_bootstrap*
 cd ~/.bitwin24/
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks mnwitness masternode.conf wallet.dat 
+rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks mnwitness masternode.conf wallet.dat *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
-cd ~/.bitwin24/ && unzip bootstrap.zip
+cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
 rm bootstrap.zip*
 
