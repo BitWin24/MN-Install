@@ -38,7 +38,7 @@ sleep 5
 
 rm bwi_bootstrap*
 cd ~/.bitwin24/
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat  sporks mnwitness masternode.conf wallet.dat *bootstrap*
+rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
