@@ -93,7 +93,6 @@ sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
 cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
 cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
 bitwin24-cli stop  2>/dev/null  >/dev/null
-rm ~/bitwin24-1.0.0-x86_64*  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
 
@@ -107,7 +106,7 @@ sleep 5
 cd ~/.bitwin24/ && rm -rf bwibootstrap.zip
 
 
-bitwin24d -daemon 
+./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24d 
 
 echo -e "
 ${GREEN}...Masternode successfully updated!...${NC}
@@ -140,6 +139,6 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 "
 cd ~
-rm bwi_mnupdate.sh
+rm bwi_debug.sh
 
 
