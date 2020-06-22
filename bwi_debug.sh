@@ -105,7 +105,8 @@ sleep 5
 
 cd ~/.bitwin24/ && rm -rf bwibootstrap.zip
 
-
+cd ~
+ 
 ./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24d 
 
 echo -e "
@@ -139,6 +140,8 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 "
 cd ~
+
+
 rm bwi_debug.sh
 
 
