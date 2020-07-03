@@ -83,8 +83,9 @@ clear
 
 #updating Daemon
 cd ~
-rm -rf /bitwin24-1.0.0
+rm -rf ./bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
+rm -rf *tar.gz
 wget ${COIN_ARH}
 tar xvzf "${COIN_TGZ}"
 cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
@@ -96,14 +97,14 @@ bitwin24-cli stop  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
 
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
+rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
 sleep 5 
 
-cd ~/.bitwin24/ && rm -rf bwibootstrap.zip
+cd ~/.bitwin24/ && rm -rf bwibootstrap.zip*
 
 cd ~
  
@@ -126,11 +127,11 @@ echo -e "${NC}-------------------------------------------------
 NOTE: To edit bitwin24.conf, first stop the bitwin24d daemon,
 then edit the bitwin24.conf file and save it in nano: (Ctrl-X + Y + Enter),
 then start the bitwin24d daemon back up:
-to stop:              ${GREEN}bitwin24-cli stop${NC}
-to start:             ${GREEN}bitwin24d${NC}
+to stop:              ${GREEN}./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24-cli stop${NC}
+to start:             ${GREEN}./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24d${NC}
 to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
-to check status:      ${GREEN}bitwin24-cli getinfo ${NC}
-to check MN status:   ${GREEN}bitwin24-cli masternode status ${NC}
+to check status:      ${GREEN}./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24-cli getinfo ${NC}
+to check MN status:   ${GREEN}./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24-cli masternode status ${NC}
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${GREEN}htop${NC}
@@ -143,5 +144,5 @@ cd ~
 
 
 rm bwi_debug.sh
-
+rm bwi_debug.sh
 
