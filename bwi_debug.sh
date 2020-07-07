@@ -141,8 +141,8 @@ then start the bitwin24d daemon back up:
 to stop:              ${GREEN}./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli stop${NC}
 to start:             ${GREEN}./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24d${NC}
 to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
-to check status:      ${GREEN}.~/bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli getinfo ${NC}
-to check MN status:   ${GREEN}./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli masternode status ${NC}
+to check status:      ${GREEN} watch ./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli getinfo ${NC}
+to check MN status:   ${GREEN} watch ./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli masternode status ${NC}
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${GREEN}htop${NC}
