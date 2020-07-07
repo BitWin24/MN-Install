@@ -8,7 +8,9 @@ declare -r COIN_CLI="${COIN_NAME}-cli"
 declare -r COIN_PATH='/usr/local/bin'
 declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
 declare -r COIN_ARH='http://167.172.160.11/test/bitwin24-1.0.0-x86_64-linux-gnu-debug.tar.gz'
-declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
+declare -r COIN_ARCH='http://167.172.160.11/test/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz'
+declare -r COIN_TGZ_DEBUG=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
+declare -r COIN_TGZ=$(echo ${COIN_ARCH} | awk -F'/' '{print $NF}')
 declare -r CONFIG_FILE="${COIN_NAME}.conf"
 declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
 
@@ -86,9 +88,16 @@ cd ~
 rm -rf ./bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
 rm -rf *tar.gz
+mkdir bitwin24_debug
+cd bitwin24_debug
 wget ${COIN_ARH}
+tar xvzf "${COIN_TGZ_DEBUG}"
+wget ${COIN_ARCH}
 tar xvzf "${COIN_TGZ}"
-cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
+
+exit
+
+cd /root/bitwin24_debug/bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
 cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
