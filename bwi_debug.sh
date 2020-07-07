@@ -85,7 +85,8 @@ clear
 
 #updating Daemon
 cd ~
-rm -rf ./bitwin24-1.0.0
+rm -rf bitwin24-1.0.0-x86_64-linux-gnu-debug*
+rm -rf bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
 rm -rf *tar.gz
 mkdir bitwin24_debug
