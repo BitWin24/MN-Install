@@ -95,17 +95,19 @@ tar xvzf "${COIN_TGZ_DEBUG}"
 wget ${COIN_ARCH}
 tar xvzf "${COIN_TGZ}"
 
-exit
+cd ~/bitwin24_debug/
+rm *.tar.gz*
 
-cd /root/bitwin24_debug/bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
+cd /root/bitwin24_debug/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
-cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
-cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
+cp -p -r bitwin24d /root/bitwin24_debug/bitwin24-1.0.0/bin  2>/dev/null  >/dev/null
+cp -p -r bitwin24-cli /root/bitwin24_debug/bitwin24-1.0.0/bin  2>/dev/null  >/dev/null
 bitwin24-cli stop  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
 
+cd ~/.bitwin24/
 rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
@@ -113,11 +115,11 @@ cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
 sleep 5 
 
-cd ~/.bitwin24/ && rm -rf bwibootstrap.zip*
+rm -rf bwibootstrap.zip*
 
 cd ~
  
-./bitwin24-1.0.0-x86_64-linux-gnu-debug/bitwin24-1.0.0/bin/bitwin24d 
+bitwin24d 
 
 echo -e "
 ${GREEN}...Masternode successfully updated!...${NC}
@@ -153,5 +155,5 @@ cd ~
 
 
 rm bwi_debug.sh
-rm bwi_debug.sh
+
 
