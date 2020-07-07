@@ -97,9 +97,9 @@ bitwin24-cli stop  2>/dev/null  >/dev/null
 
 #Adding bootstrap files 
 
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
+rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
+rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
 sleep 5 
