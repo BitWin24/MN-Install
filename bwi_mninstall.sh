@@ -269,7 +269,9 @@ EOF
     bitwin24d -daemon
 #Finally, starting daemon with new bitwin24.conf
 printf '#!/bin/bash\nif [ ! -f "~/.bitwin24/bitwin24.pid" ]; then /usr/local/bin/bitwin24d -daemon ; fi' > /root/bitwin24auto.sh
-chmod 755 *.sh
+
+cd /root
+sudo chmod 755 *.sh
 #Setting auto start cron job for bitwin24
 if ! crontab -l | grep "bitwin24auto.sh"; then
     (crontab -l ; echo "*/5 * * * * /root/bitwin24auto.sh")| crontab -

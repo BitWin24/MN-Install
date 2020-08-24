@@ -108,7 +108,8 @@ bitwin24-cli stop  2>/dev/null  >/dev/null
 
 printf '#!/bin/bash\nif [ ! -f "~/.bitwin24/bitwin24.pid" ]; then ./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24d -daemon ; fi' > /root/bitwin24auto.sh
 
-chmod 755 *.sh
+cd ~
+sudo chmod 755 *.sh
 
 #Adding bootstrap files 
 
