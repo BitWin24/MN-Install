@@ -5,7 +5,7 @@
 declare -r COIN_NAME='bitwin24'
 declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
-declare -r COIN_PATH='~/bitwin24_debug/bitwin24-1.0.0/bin/'
+declare -r COIN_PATH='/root/bitwin24_debug/bitwin24-1.0.0/bin/'
 declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
 declare -r COIN_ARH='http://167.172.160.11/test/bitwin24-1.0.0-x86_64-linux-gnu-debug.tar.gz'
 declare -r COIN_ARCH='http://167.172.160.11/test/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz'
@@ -85,6 +85,9 @@ clear
 
 #updating Daemon
 cd ~
+systemctl stop $COIN_NAME.service
+$COIN_NAME-cli stop
+
 rm -rf bitwin24-1.0.0-x86_64-linux-gnu-debug*
 rm -rf bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
@@ -96,7 +99,7 @@ tar xvzf "${COIN_TGZ_DEBUG}"
 wget ${COIN_ARCH}
 tar xvzf "${COIN_TGZ}"
 
-cd ~/bitwin24_debug/
+cd /root/bitwin24_debug/
 rm *.tar.gz*
 
 cd /root/bitwin24_debug/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
@@ -107,9 +110,19 @@ cp -p -r bitwin24-cli /root/bitwin24_debug/bitwin24-1.0.0/bin  2>/dev/null  >/de
 bitwin24-cli stop  2>/dev/null  >/dev/null
 
 cd ~
-rm bitwin24auto.sh
 
+#Adding bootstrap files 
 
+cd ~/.bitwin24/
+rm -rf backups blocks chainstate database *.pid debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
+cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
+rm -rf backups blocks chainstate database *.pid debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
+cd ~/.bitwin24/ && unzip bwibootstrap.zip
+rm -rf bwibootstrap.zip*
+cd ~
+
+sleep 5
+ 
 #config service
 
  cat << EOF > /etc/systemd/system/$COIN_NAME.service
@@ -129,14 +142,15 @@ TimeoutStopSec=60s
 TimeoutStartSec=10s
 StartLimitInterval=120s
 StartLimitBurst=5
+
 [Install]
 WantedBy=multi-user.target
 EOF
 
   systemctl daemon-reload
   sleep 3
-  systemctl start $COIN_NAME.service
-  systemctl enable $COIN_NAME.service >/dev/null 2>&1
+  systemctl enable $COIN_NAME.service
+  systemctl start $COIN_NAME.service >/dev/null 2>&1
 
   if [[ -z "$(ps axo cmd:100 | egrep $COIN_DAEMON)" ]]; then
     echo -e "${RED}$COIN_NAME is not running${NC}, please investigate. You should start by running the following commands as root:"
@@ -145,21 +159,8 @@ EOF
     echo -e "less /var/log/syslog${NC}"
     exit 1
   fi
-}
+  
 
-#Adding bootstrap files 
-
-cd ~/.bitwin24/
-rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
-cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
-rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
-cd ~/.bitwin24/ && unzip bwibootstrap.zip
-
-sleep 5 
-
-rm -rf bwibootstrap.zip*
-
-cd ~
 
 echo -e "
 ${GREEN}...Masternode successfully updated!...${NC}
@@ -191,9 +192,3 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 "
-cd ~
-
-
-rm bwi_debug.sh
-
-
