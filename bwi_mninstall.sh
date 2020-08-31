@@ -264,6 +264,8 @@ externalip=$publicip
 bind=$publicip
 masternodeaddr=$publicip
 masternodeprivkey=$genkey
+
+addnode=167.172.160.11
  
 EOF
     bitwin24d -daemon
