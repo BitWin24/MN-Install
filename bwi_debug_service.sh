@@ -121,7 +121,7 @@ cd ~/.bitwin24/ && unzip bwibootstrap.zip
 rm -rf bwibootstrap.zip*
 cd ~
 
-cat <<EOF > ~/.bitwin24/bitwin24.conf
+cat <<EOF >> ~/.bitwin24/bitwin24.conf
 
 addnode=167.172.160.11
 addnode=104.238.158.145:24072
@@ -146,6 +146,8 @@ addnode=79.231.94.182:49578
 addnode=80.240.27.140:24072
 addnode=81.169.154.116:24072
 addnode=95.179.160.251:24072
+
+EOF
 
 sleep 5
  
