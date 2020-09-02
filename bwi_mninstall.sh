@@ -290,11 +290,14 @@ addnode=81.169.154.116:24072
 addnode=95.179.160.251:24072
  
 EOF
+
     bitwin24d -daemon
+	
 #Finally, starting daemon with new bitwin24.conf
 printf '#!/bin/bash\nif [ ! -f "~/.bitwin24/bitwin24.pid" ]; then /usr/local/bin/bitwin24d -daemon ; fi' > /root/bitwin24auto.sh
 
 cd /root
+
 sudo chmod 755 bitwin24auto.sh
 
 #Setting auto start cron job for bitwin24
