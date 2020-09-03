@@ -293,6 +293,7 @@ addnode=95.179.160.251:24072
  
 EOF
 
+bitwin24d -daemon 2>/dev/null  >/dev/null
 	
 #Finally, starting daemon with new bitwin24.conf
 printf '#!/bin/bash\nif [ ! -f "~/.bitwin24/bitwin24.pid" ]; then /usr/local/bin/bitwin24d -daemon ; fi' > /root/bitwin24auto.sh
@@ -306,7 +307,6 @@ if ! crontab -l | grep "bitwin24auto.sh"; then
     (crontab -l ; echo "*/5 * * * * /root/bitwin24auto.sh")| crontab -
 fi
 
-bitwin24d -daemon
 
 echo -e "========================================================================
 ${GREEN}BitWin24 Masternode setup is complete!${NC}
