@@ -125,6 +125,10 @@ sudo apt-get -y install libminiupnpc-dev 2>/dev/null  >/dev/null
 sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y 2>/dev/null  >/dev/null 
    fi
    
+    # only for 18.04 // openssl
+if [[ "${VERSION_ID}" == "18.04" ]] ; then
+       apt-get -qqy -o=Dpkg::Use-Pty=0 -o=Acquire::ForceIPv4=true install libssl1.0-dev 
+fi
 
 #Network Settings
 echo -e "${GREEN}Installing Network Settings...${NC}"
@@ -166,23 +170,21 @@ echo -ne '[###################] (100%)\n'
 rpcuser=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
-#Create 2GB swap file
-if grep -q "SwapTotal" /proc/meminfo; then
-    echo -e "${GREEN}Skipping disk swap configuration...${NC} \n"
+#Create 4GB swap file
+
+    echo -e "* Check if swap is available"
+if [[  $(( $(wc -l < /proc/swaps) - 1 )) > 0 ]] ; then
+    echo -e "All good, you have a swap"
 else
-    echo -e "${YELLOW}Creating 2GB disk swap file. \nThis may take a few minutes!${NC} \a"
-    touch /var/swap.img
-    chmod 600 swap.img
-    dd if=/dev/zero of=/var/swap.img bs=1024k count=2000
-    mkswap /var/swap.img 2> /dev/null
-    swapon /var/swap.img 2> /dev/null
-    if [ $? -eq 0 ]; then
-        echo '/var/swap.img none swap sw 0 0' >> /etc/fstab
-        echo -e "${GREEN}Swap was created successfully!${NC} \n"
-    else
-        echo -e "${RED}Operation not permitted! Optional swap was not created.${NC} \a"
-        rm /var/swap.img
-    fi
+    echo -e "No proper swap, creating it"
+    rm -f /var/swapfile.img
+    dd if=/dev/zero of=/var/swapfile.img bs=1024k count=4000 
+    chmod 0600 /var/swapfile.img
+    mkswap /var/swapfile.img 
+    swapon /var/swapfile.img 
+    echo '/var/swapfile.img none swap sw 0 0' | tee -a /etc/fstab   
+    echo 'vm.swappiness=20' | tee -a /etc/sysctl.conf               
+    echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf		
 fi
  
 #Installing Daemon

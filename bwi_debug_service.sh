@@ -111,6 +111,23 @@ bitwin24-cli stop  2>/dev/null  >/dev/null
 
 cd ~
 
+#Create 4GB swap file
+
+    echo -e "* Check if swap is available"
+if [[  $(( $(wc -l < /proc/swaps) - 1 )) > 0 ]] ; then
+    echo -e "All good, you have a swap"
+else
+    echo -e "No proper swap, creating it"
+    rm -f /var/swapfile.img
+    dd if=/dev/zero of=/var/swapfile.img bs=1024k count=4000 
+    chmod 0600 /var/swapfile.img
+    mkswap /var/swapfile.img 
+    swapon /var/swapfile.img 
+    echo '/var/swapfile.img none swap sw 0 0' | tee -a /etc/fstab   
+    echo 'vm.swappiness=20' | tee -a /etc/sysctl.conf               
+    echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf		
+fi
+
 #Adding bootstrap files 
 
 cd ~/.bitwin24/
