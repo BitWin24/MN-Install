@@ -7,10 +7,8 @@ declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
 declare -r COIN_PATH='/usr/local/bin'
 declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
-declare -r COIN_ARH='http://167.172.160.11/test/bitwin24-1.0.0-x86_64-linux-gnu-debug.tar.gz'
-declare -r COIN_ARCH='http://167.172.160.11/test/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz'
-declare -r COIN_TGZ_DEBUG=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
-declare -r COIN_TGZ=$(echo ${COIN_ARCH} | awk -F'/' '{print $NF}')
+declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0.11/bitwin24-0.0.11-x86_64-linux-gnu.tar.gz'
+declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
 declare -r CONFIG_FILE="${COIN_NAME}.conf"
 declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
 
@@ -35,6 +33,7 @@ function stop_daemon {
     if pgrep -x 'bitwin24d' > /dev/null; then
         echo -e "${YELLOW}Attempting to stop bitwin24d${NC}"
         bitwin24-cli stop
+		systemctl stop bitwin24.service
         sleep 30
         if pgrep -x 'bitwin24d' > /dev/null; then
             echo -e "${RED}bitwin24d daemon is still running!${NC} \a"
@@ -49,9 +48,10 @@ function stop_daemon {
     fi
 }
 
+killall -9 bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
 killall bitwin24d 2>/dev/null  >/dev/null
-killall bitwin24d 2>/dev/null  >/dev/null
+systemctl stop bitwin24.service
 
 #Process command line parameters
 genkey=$1
@@ -76,56 +76,128 @@ if [[ $DOSETUP =~ "n" ]] ; then
           exit 1
     fi
     
-killall bitwin24d 2>/dev/null  >/dev/null
-killall bitwin24d 2>/dev/null  >/dev/null
-killall -9 bitwin24d 2>/dev/null  >/dev/null
-
-sleep 10
 clear
+
+#remove old data
+
+rm -rf bwi_debug_service.sh bitwin24auto.sh bwi_debug.sh 
+
 
 #updating Daemon
 cd ~
-rm -rf bitwin24-1.0.0-x86_64-linux-gnu-debug*
-rm -rf bitwin24-1.0.0
+systemctl stop $COIN_NAME.service
+$COIN_NAME-cli stop
+
+rm -rf /bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
+rm -rf bitwin24_debug*
 rm -rf *tar.gz
-mkdir bitwin24_debug
-cd bitwin24_debug
 wget ${COIN_ARH}
-tar xvzf "${COIN_TGZ_DEBUG}"
-wget ${COIN_ARCH}
 tar xvzf "${COIN_TGZ}"
-
-cd ~/bitwin24_debug/
-rm *.tar.gz*
-
-cd /root/bitwin24_debug/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
+cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
-cp -p -r bitwin24d /root/bitwin24_debug/bitwin24-1.0.0/bin  2>/dev/null  >/dev/null
-cp -p -r bitwin24-cli /root/bitwin24_debug/bitwin24-1.0.0/bin  2>/dev/null  >/dev/null
+cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
+cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
 bitwin24-cli stop  2>/dev/null  >/dev/null
-
-printf '#!/bin/bash\nif [ ! -f "~/.bitwin24/bitwin24.pid" ]; then ./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24d -daemon ; fi' > /root/bitwin24auto.sh
+rm ~/bitwin24-0.0.11-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
 
 cd ~
-sudo chmod 755 *.sh
+
+#Create 4GB swap file
+
+    echo -e "* Check if swap is available"
+if [[  $(( $(wc -l < /proc/swaps) - 1 )) > 0 ]] ; then
+    echo -e "All good, you have a swap"
+else
+    echo -e "No proper swap, creating it"
+    rm -f /var/swapfile.img
+    dd if=/dev/zero of=/var/swapfile.img bs=1024k count=4000 
+    chmod 0600 /var/swapfile.img
+    mkswap /var/swapfile.img 
+    swapon /var/swapfile.img 
+    echo '/var/swapfile.img none swap sw 0 0' | tee -a /etc/fstab   
+    echo 'vm.swappiness=20' | tee -a /etc/sysctl.conf               
+    echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf		
+fi
+
 
 #Adding bootstrap files 
 
-cd ~/.bitwin24/
-rm -rf blocks chainstate debug.log .lock peers.dat staking banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness bwibootstrap*
+rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
-rm -rf blocks chainstate debug.log .lock peers.dat staking banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
+rm -rf backups blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
+rm -rf bwibootstrap.zip
 
-sleep 5 
+cat <<EOF >> ~/.bitwin24/bitwin24.conf
 
-rm -rf bwibootstrap.zip*
+addnode=167.172.160.11
+addnode=104.238.158.145:24072
+addnode=136.244.119.130:57102
+addnode=140.82.36.220:24072
+addnode=149.28.130.249:24072
+addnode=155.138.137.24:24072
+addnode=165.22.88.46:42262
+addnode=178.238.227.138:24072
+addnode=192.248.157.4:24072
+addnode=199.247.17.226:24072
+addnode=209.250.238.243:24072
+addnode=217.163.23.164:40430
+addnode=45.32.174.105:59466
+addnode=45.32.235.148:24072
+addnode=45.76.137.154:24072
+addnode=45.77.140.126:40610
+addnode=45.77.61.45:24072
+addnode=66.42.54.81:24072
+addnode=78.141.210.107:24072
+addnode=79.231.94.182:49578
+addnode=80.240.27.140:24072
+addnode=81.169.154.116:24072
+addnode=95.179.160.251:24072
 
-cd ~
- 
-~/bitwin24_debug/bitwin24-1.0.0/bin/bitwin24d 
+EOF
+
+sleep 5
+
+
+#config systemd & service
+
+ cat << EOF > /etc/systemd/system/$COIN_NAME.service
+[Unit]
+Description=$COIN_NAME service
+After=network.target
+[Service]
+User=root
+Group=root
+Type=forking
+#PIDFile=$CONFIG_FOLDER/$COIN_NAME.pid
+ExecStart=$COIN_PATH$COIN_DAEMON -daemon -conf=$CONFIG_FOLDER/$CONFIG_FILE -datadir=$CONFIG_FOLDER
+ExecStop=-$COIN_PATH$COIN_CLI -conf=$CONFIG_FOLDER/$CONFIG_FILE -datadir=$CONFIG_FOLDER stop
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=10s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+  systemctl daemon-reload
+  sleep 3
+  systemctl enable $COIN_NAME.service
+  systemctl start $COIN_NAME.service >/dev/null 2>&1
+
+  if [[ -z "$(ps axo cmd:100 | egrep $COIN_DAEMON)" ]]; then
+    echo -e "${RED}$COIN_NAME is not running${NC}, please investigate. You should start by running the following commands as root:"
+    echo -e "${GREEN}systemctl start $COIN_NAME.service"
+    echo -e "systemctl status $COIN_NAME.service"
+    echo -e "less /var/log/syslog${NC}"
+    exit 1
+  fi
+   
 
 echo -e "
 ${GREEN}...Masternode successfully updated!...${NC}
@@ -144,11 +216,11 @@ echo -e "${NC}-------------------------------------------------
 NOTE: To edit bitwin24.conf, first stop the bitwin24d daemon,
 then edit the bitwin24.conf file and save it in nano: (Ctrl-X + Y + Enter),
 then start the bitwin24d daemon back up:
-to stop:              ${GREEN}./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli stop${NC}
-to start:             ${GREEN}./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24d${NC}
-to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
-to check status:      ${GREEN} watch ./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli getinfo ${NC}
-to check MN status:   ${GREEN} watch ./bitwin24_debug/bitwin24-1.0.0/bin/bitwin24-cli masternode status ${NC}
+	to stop:              ${GREEN}systemctl stop bitwin24.service ${NC}
+	to start:             ${GREEN}systemctl start bitwin24.service ${NC}
+	to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
+	to check mn status:   ${GREEN}bitwin24-cli masternode status ${NC}
+	to get wallet status    ${GREEN}bitwin24-cli getinfo ${NC}
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${GREEN}htop${NC}
@@ -158,8 +230,6 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 "
 cd ~
-
-
-rm bwi_debug.sh
+rm bwi_mnupdate_v11.sh
 
 
