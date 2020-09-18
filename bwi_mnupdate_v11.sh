@@ -158,7 +158,7 @@ addnode=95.179.160.251:24072
 
 EOF
 
-sleep 5
+sleep 2
 
 
 #config systemd & service
@@ -220,7 +220,7 @@ then start the bitwin24d daemon back up:
 	to start:             ${GREEN}systemctl start bitwin24.service ${NC}
 	to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
 	to check mn status:   ${GREEN}bitwin24-cli masternode status ${NC}
-	to get wallet status    ${GREEN}bitwin24-cli getinfo ${NC}
+	to get wallet status  ${GREEN}bitwin24-cli getinfo ${NC}
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${GREEN}htop${NC}

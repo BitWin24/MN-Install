@@ -13,7 +13,7 @@
 declare -r COIN_NAME='bitwin24'
 declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
-declare -r COIN_PATH='/usr/local/bin'
+declare -r COIN_PATH='/usr/local/bin/'
 declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
 declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0.11/bitwin24-0.0.11-x86_64-linux-gnu.tar.gz'
 declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
@@ -130,6 +130,8 @@ if [[ "${VERSION_ID}" == "18.04" ]] ; then
        apt-get -qqy -o=Dpkg::Use-Pty=0 -o=Acquire::ForceIPv4=true install libssl1.0-dev 
 fi
 
+clear
+
 #Network Settings
 echo -e "${GREEN}Installing Network Settings...${NC}"
 {
@@ -170,6 +172,8 @@ echo -ne '[###################] (100%)\n'
 rpcuser=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 rpcpassword=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
+clear
+
 #Create 4GB swap file
 
     echo -e "* Check if swap is available"
@@ -186,6 +190,8 @@ else
     echo 'vm.swappiness=20' | tee -a /etc/sysctl.conf               
     echo 'vm.vfs_cache_pressure=50' | tee -a /etc/sysctl.conf		
 fi
+
+clear
  
 #Installing Daemon
 echo -e "${GREEN}Downloading and installing BitWin24 deamon...${NC}"
@@ -295,7 +301,7 @@ EOF
 
 
 	
-sleep 5
+sleep 3
  
 #config systemd & service
 
