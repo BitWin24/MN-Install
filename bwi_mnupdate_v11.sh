@@ -5,7 +5,7 @@
 declare -r COIN_NAME='bitwin24'
 declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
-declare -r COIN_PATH='/usr/local/bin'
+declare -r COIN_PATH='/usr/local/bin/'
 declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
 declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0.11/bitwin24-0.0.11-x86_64-linux-gnu.tar.gz'
 declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
