@@ -32,13 +32,14 @@ clear
 cd ~
 rm -rf bitwin24-0.0.*
 bitwin24-cli stop
+systemctl stop bitwin24.service
 sleep 5
 
 # downloading bootstrap
 
 rm bwi_bootstrap*
 cd ~/.bitwin24/
-rm -rf backups blocks chainstate debug.log .lock mncache.dat peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
+rm -rf blocks chainstate debug.log .lock mncache.dat peers.dat staking banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
