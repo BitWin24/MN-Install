@@ -39,7 +39,6 @@ apt install unzip -y
 # downloading bootstrap
 
 
-rm bwi_bootstrap*
 cd ~/.bitwin24/
 rm -rf blocks chainstate debug.log .lock mncache.dat peers.dat staking banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
@@ -47,8 +46,6 @@ cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
 rm bootstrap.zip*
 
-
-rm -rf bootstrap*
 
 # starting wallet
 
