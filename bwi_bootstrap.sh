@@ -27,15 +27,17 @@ if [[ $DOSETUP =~ "n" ]] ; then
 sleep .5
 clear
 
-# stopping wallet
+# stopping wallet and installing unzip
 
 cd ~
 rm -rf bitwin24-0.0.*
 bitwin24-cli stop
 systemctl stop bitwin24.service
 sleep 5
+apt install unzip -y
 
 # downloading bootstrap
+
 
 rm bwi_bootstrap*
 cd ~/.bitwin24/
@@ -50,7 +52,7 @@ rm -rf bootstrap*
 
 # starting wallet
 
-bitwin24d -daemon
+systemctl start bitwin24.service
 
 echo -e "========================================================================
 ${GREEN}Bootstrap added!${NC}
