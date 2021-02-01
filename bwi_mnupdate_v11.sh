@@ -131,8 +131,8 @@ cd ~/.bitwin24/ && unzip bwibootstrap.zip
 rm -rf bwibootstrap.zip
 
 
-sed -i '/addnode/d' ./infile
-
+sed -i '/addnode/d' ~/.bitwin24/bitwin24.conf
+sed -i '/whitelist/d' ~/.bitwin24/bitwin24.conf
 
 
 cat <<EOF >> ~/.bitwin24/bitwin24.conf
