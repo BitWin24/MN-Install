@@ -15,7 +15,7 @@ declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
 declare -r COIN_PATH='/usr/local/bin/'
 declare -r BOOTSTRAP_LINK='http://165.22.88.46/bwibootstrap.zip'
-declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0.11/bitwin24-0.0.11-x86_64-linux-gnu.tar.gz'
+declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0.12/bitwin24-0.0.12-x86_64-linux-gnu.tar.gz'
 declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
 declare -r CONFIG_FILE="${COIN_NAME}.conf"
 declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
@@ -206,7 +206,7 @@ sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
 cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
 cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
 bitwin24-cli stop  2>/dev/null  >/dev/null
-rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
+rm ~/bitwin24-0.0.12-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
  
 sleep 5
  #Create datadir
@@ -273,29 +273,23 @@ bind=$publicip
 masternodeaddr=$publicip
 masternodeprivkey=$genkey
 
-addnode=167.172.160.11
-addnode=104.238.158.145:24072
-addnode=136.244.119.130:57102
-addnode=140.82.36.220:24072
-addnode=149.28.130.249:24072
-addnode=155.138.137.24:24072
-addnode=165.22.88.46:42262
-addnode=178.238.227.138:24072
-addnode=192.248.157.4:24072
-addnode=199.247.17.226:24072
-addnode=209.250.238.243:24072
-addnode=217.163.23.164:40430
-addnode=45.32.174.105:59466
-addnode=45.32.235.148:24072
-addnode=45.76.137.154:24072
-addnode=45.77.140.126:40610
-addnode=45.77.61.45:24072
-addnode=66.42.54.81:24072
-addnode=78.141.210.107:24072
-addnode=79.231.94.182:49578
-addnode=80.240.27.140:24072
-addnode=81.169.154.116:24072
-addnode=95.179.160.251:24072
+whitelist=185.147.75.96/28
+connect=167.71.34.139
+addnode=185.147.75.100
+addnode=185.147.75.101
+addnode=185.147.75.102
+addnode=185.147.75.103
+addnode=185.147.75.104
+addnode=185.147.75.105
+addnode=185.147.75.106
+addnode=185.147.75.107
+addnode=185.147.75.108
+addnode=185.147.75.109
+addnode=85.214.62.207
+addnode=173.212.199.74
+addnode=185.132.45.210
+addnode=167.71.34.139
+addnode=81.169.183.194
  
 EOF
 
@@ -396,6 +390,13 @@ to start:             ${GREEN}systemctl start bitwin24.service ${NC}
 to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
 to check mn status:   ${GREEN}bitwin24-cli masternode status ${NC}
 to get Wallet info    ${GREEN}bitwin24-cli getinfo ${NC}
+
+to watch the commands try 
+
+${GREEN}watch bitwin24-cli masternode status ${NC}
+
+${GREEN}watch bitwin24-cli getinfo ${NC}
+
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${GREEN}htop${NC}

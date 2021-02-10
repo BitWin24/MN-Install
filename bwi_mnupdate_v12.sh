@@ -226,6 +226,11 @@ then start the bitwin24d daemon back up:
 	to edit:              ${GREEN}nano ~/.bitwin24/bitwin24.conf ${NC}
 	to check mn status:   ${GREEN}bitwin24-cli masternode status ${NC}
 	to get wallet status  ${GREEN}bitwin24-cli getinfo ${NC}
+	
+	${GREEN}watch bitwin24-cli masternode status ${NC}
+
+	${GREEN}watch bitwin24-cli getinfo ${NC}
+	
 ========================================================================
 To monitor system resource utilization and running processes:
                    ${GREEN}htop${NC}
