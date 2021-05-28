@@ -439,6 +439,8 @@ ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 ${RED}BitWin24 - the first real Blockchain Lottery${NC} 
 
 "
+sleep 10 
+
 systemctl start bitwin24.service
 
 rm ~/bwi_mninstall.sh
