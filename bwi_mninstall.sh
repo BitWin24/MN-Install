@@ -436,7 +436,10 @@ To monitor system resource utilization and running processes:
 
 ${GREEN}Have fun with your BitWin24 Masternode!${NC}
 
-${RED}BitWin24 - the first real Blockchain Lottery${NC} 
+${ORANGE}BitWin24 - the first real Blockchain Lottery${NC} 
+${NC} 
+
+${GREEN}PLEASE WAIT - STARTING BITWIN24 MASTERNODE${NC} 
 
 "
 sleep 10 
