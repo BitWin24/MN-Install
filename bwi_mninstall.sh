@@ -246,7 +246,7 @@ done
     
 #Adding bootstrap files 
 
-cd ~/.bitwin24/ && rm -rf blocks chainstate debug.log .lock mncache.dat peers.dat staking banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks *bootstrap*
+cd ~/.bitwin24/ && rm -rf blocks chainstate debug.log .lock mncache.dat staking banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
 
