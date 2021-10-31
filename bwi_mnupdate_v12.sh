@@ -124,9 +124,9 @@ fi
 
 #Adding bootstrap files 
 
-rm -rf blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
+rm -rf blocks chainstate debug.log .lock staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness *bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
-rm -rf blocks chainstate debug.log .lock peers.dat staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
+rm -rf blocks chainstate debug.log .lock staking zerocoin banlist.dat budget.dat db.log fee_estimates.dat mnpayments.dat sporks mnwitness
 cd ~/.bitwin24/ && unzip bwibootstrap.zip
 rm -rf bwibootstrap.zip
 
